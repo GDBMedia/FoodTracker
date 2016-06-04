@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-6">
+    <select (change)="onChangeCalorie($event.target.value)" class="form-control filter">
+      <option value="all" selected>Show All</option>
+      <option value="healthy">Below 500 Calories</option>
+      <option value="notHealthy">Above 500 Calories</option>
+    </select>
+  </div>
+  <div class="col-md-6">
+    <input (change)="onChangeDate($event.target.value)" class="form-control filter" type="date">
+  </div>
+</div>
+<food-display *ngFor="let currentFood of foodList | calorie:filterCalorie | date:filterDate"
+  (click)="foodClicked(currentFood)"
+  [class.unhealthy]="currentFood.calories > 500"
+  [class.okay]="currentFood.calories <= 500 && currentFood.calories > 200"
+  [class.healthy]="currentFood.calories <= 200"
+  [class.selected]="currentFood === selectedFood"
+  [food]="currentFood">
+</food-display>
+<edit-food-details *ngIf="selectedFood" [food]="selectedFood">
+</edit-food-details>
+<new-food (onSubmitNewFood)="createFood($event)"></new-food>
+<h3 *ngIf="getTotalCalories()>0" >Total Calories: {{ getTotalCalories() }}</h3>
+<h3 *ngIf="getDateFilter() != 'all'" >Today's Total Calories: {{ getTodaysCalories(getDateFilter()) }}</h3>
