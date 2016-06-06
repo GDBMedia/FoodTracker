@@ -5,6 +5,7 @@ import { EditFoodDetailsComponent } from './edit-food-details.component';
 import { NewFoodComponent } from './new-food.component';
 import {CaloriePipe} from './calorie.pipe';
 import {DatePipe} from './date.pipe';
+import moment from "moment";
 
 @Component({
   selector: 'food-list',
